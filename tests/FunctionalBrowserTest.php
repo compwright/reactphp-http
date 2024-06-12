@@ -373,7 +373,7 @@ class FunctionalBrowserTest extends TestCase
 
         $this->expectException(\OverflowException::class);
         $this->expectExceptionMessage('Response body size of 5 bytes exceeds maximum of 4 bytes');
-        $this->expectExceptionCode(defined('SOCKET_EMSGSIZE') ? SOCKET_EMSGSIZE : 0);
+        $this->expectExceptionCode(defined('SOCKET_EMSGSIZE') ? SOCKET_EMSGSIZE : 90);
         await($promise);
     }
 
@@ -383,7 +383,7 @@ class FunctionalBrowserTest extends TestCase
 
         $this->expectException(\OverflowException::class);
         $this->expectExceptionMessage('Response body size exceeds maximum of 4 bytes');
-        $this->expectExceptionCode(defined('SOCKET_EMSGSIZE') ? SOCKET_EMSGSIZE : 0);
+        $this->expectExceptionCode(defined('SOCKET_EMSGSIZE') ? SOCKET_EMSGSIZE : 90);
         await($promise);
     }
 
