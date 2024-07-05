@@ -10,6 +10,7 @@ use React\Http\Io\Transaction;
 use React\Http\Message\Request;
 use React\Http\Message\Uri;
 use React\Promise\PromiseInterface;
+use React\Socket\Connector;
 use React\Socket\ConnectorInterface;
 use React\Stream\ReadableStreamInterface;
 use InvalidArgumentException;
@@ -68,11 +69,11 @@ class Browser
      * @param ?ConnectorInterface $connector
      * @param ?LoopInterface $loop
      */
-    public function __construct(ConnectorInterface $connector = null, LoopInterface $loop = null)
+    public function __construct(?ConnectorInterface $connector = null, ?LoopInterface $loop = null)
     {
         $loop = $loop ?? Loop::get();
         $this->transaction = new Transaction(
-            Sender::createFromLoop($loop, $connector),
+            Sender::createFromLoop($loop, $connector ?? new Connector([], $loop)),
             $loop
         );
     }

@@ -34,7 +34,9 @@ class SenderTest extends TestCase
 
     public function testCreateFromLoop()
     {
-        $sender = Sender::createFromLoop($this->loop, null);
+        $connector = $this->createMock(ConnectorInterface::class);
+
+        $sender = Sender::createFromLoop($this->loop, $connector);
 
         $this->assertInstanceOf(Sender::class, $sender);
     }
