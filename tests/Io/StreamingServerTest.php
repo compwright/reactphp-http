@@ -36,7 +36,7 @@ class StreamingServerTest extends TestCase
     }
 
 
-    private function mockConnection(array $additionalMethods = null)
+    private function mockConnection(array $additionalMethods = [])
     {
         $connection = $this->getMockBuilder(Connection::class)
             ->disableOriginalConstructor()
@@ -53,7 +53,7 @@ class StreamingServerTest extends TestCase
                     'getLocalAddress',
                     'pipe'
                 ],
-                (is_array($additionalMethods) ? $additionalMethods : [])
+                $additionalMethods
             ))
             ->getMock();
 
