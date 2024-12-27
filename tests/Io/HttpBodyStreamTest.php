@@ -131,7 +131,7 @@ class HttpBodyStreamTest extends TestCase
     public function testRead()
     {
         $this->setExpectedException('BadMethodCallException');
-        $this->bodyStream->read('');
+        $this->bodyStream->read(0);
     }
 
     public function testGetContents()
@@ -152,7 +152,7 @@ class HttpBodyStreamTest extends TestCase
     public function testSeek()
     {
         $this->setExpectedException('BadMethodCallException');
-        $this->bodyStream->seek('');
+        $this->bodyStream->seek(0);
     }
 
     public function testRewind()
