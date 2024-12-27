@@ -41,7 +41,10 @@ class ReadableBodyStream extends EventEmitter implements ReadableStreamInterface
         $input->on('close', array($that, 'close'));
     }
 
-    public function close()
+    /**
+     * @inheritdoc
+     */
+    public function close(): void
     {
         if (!$this->closed) {
             $this->closed = true;
@@ -52,21 +55,33 @@ class ReadableBodyStream extends EventEmitter implements ReadableStreamInterface
         }
     }
 
-    public function isReadable()
+    /**
+     * @inheritdoc
+     */
+    public function isReadable(): bool
     {
         return $this->input->isReadable();
     }
 
-    public function pause()
+    /**
+     * @inheritdoc
+     */
+    public function pause(): void
     {
         $this->input->pause();
     }
 
-    public function resume()
+    /**
+     * @inheritdoc
+     */
+    public function resume(): void
     {
         $this->input->resume();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function pipe(WritableStreamInterface $dest, array $options = array())
     {
         Util::pipe($this, $dest, $options);
@@ -74,12 +89,18 @@ class ReadableBodyStream extends EventEmitter implements ReadableStreamInterface
         return $dest;
     }
 
-    public function eof()
+    /**
+     * @inheritdoc
+     */
+    public function eof(): bool
     {
         return !$this->isReadable();
     }
 
-    public function __toString()
+    /**
+     * @inheritdoc
+     */
+    public function __toString(): string
     {
         return '';
     }
@@ -89,52 +110,82 @@ class ReadableBodyStream extends EventEmitter implements ReadableStreamInterface
         throw new \BadMethodCallException();
     }
 
-    public function getSize()
+    /**
+     * @inheritdoc
+     */
+    public function getSize(): ?int
     {
         return $this->size;
     }
 
-    public function tell()
+    /**
+     * @inheritdoc
+     */
+    public function tell(): int
     {
         throw new \BadMethodCallException();
     }
 
-    public function isSeekable()
+    /**
+     * @inheritdoc
+     */
+    public function isSeekable(): bool
     {
         return false;
     }
 
-    public function seek($offset, $whence = SEEK_SET)
+    /**
+     * @inheritdoc
+     */
+    public function seek(int $offset, int $whence = SEEK_SET): void
     {
         throw new \BadMethodCallException();
     }
 
-    public function rewind()
+    /**
+     * @inheritdoc
+     */
+    public function rewind(): void
     {
         throw new \BadMethodCallException();
     }
 
-    public function isWritable()
+    /**
+     * @inheritdoc
+     */
+    public function isWritable(): bool
     {
         return false;
     }
 
-    public function write($string)
+    /**
+     * @inheritdoc
+     */
+    public function write(string $string): int
     {
         throw new \BadMethodCallException();
     }
 
-    public function read($length)
+    /**
+     * @inheritdoc
+     */
+    public function read(int $length): string
     {
         throw new \BadMethodCallException();
     }
 
-    public function getContents()
+    /**
+     * @inheritdoc
+     */
+    public function getContents(): string
     {
         throw new \BadMethodCallException();
     }
 
-    public function getMetadata($key = null)
+    /**
+     * @inheritdoc
+     */
+    public function getMetadata(?string $key = null)
     {
         return ($key === null) ? array() : null;
     }

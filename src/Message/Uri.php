@@ -88,12 +88,18 @@ final class Uri implements UriInterface
         }
     }
 
-    public function getScheme()
+    /**
+     * @inheritdoc
+     */
+    public function getScheme(): string
     {
         return $this->scheme;
     }
 
-    public function getAuthority()
+    /**
+     * @inheritdoc
+     */
+    public function getAuthority(): string
     {
         if ($this->host === '') {
             return '';
@@ -102,37 +108,58 @@ final class Uri implements UriInterface
         return ($this->userInfo !== '' ? $this->userInfo . '@' : '') . $this->host . ($this->port !== null ? ':' . $this->port : '');
     }
 
-    public function getUserInfo()
+    /**
+     * @inheritdoc
+     */
+    public function getUserInfo(): string
     {
         return $this->userInfo;
     }
 
-    public function getHost()
+    /**
+     * @inheritdoc
+     */
+    public function getHost(): string
     {
         return $this->host;
     }
 
-    public function getPort()
+    /**
+     * @inheritdoc
+     */
+    public function getPort(): ?int
     {
         return $this->port;
     }
 
-    public function getPath()
+    /**
+     * @inheritdoc
+     */
+    public function getPath(): string
     {
         return $this->path;
     }
 
-    public function getQuery()
+    /**
+     * @inheritdoc
+     */
+    public function getQuery(): string
     {
         return $this->query;
     }
 
-    public function getFragment()
+    /**
+     * @inheritdoc
+     */
+    public function getFragment(): string
     {
         return $this->fragment;
     }
 
-    public function withScheme($scheme)
+    /**
+     * @inheritdoc
+     */
+    public function withScheme(string $scheme): self
     {
         $scheme = \strtolower($scheme);
         if ($scheme === $this->scheme) {
@@ -153,7 +180,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function withUserInfo($user, $password = null)
+    /**
+     * @inheritdoc
+     */
+    public function withUserInfo(string $user, ?string $password = null): self
     {
         $userInfo = $this->encode($user, \PHP_URL_USER) . ($password !== null ? ':' . $this->encode($password, \PHP_URL_PASS) : '');
         if ($userInfo === $this->userInfo) {
@@ -166,7 +196,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function withHost($host)
+    /**
+     * @inheritdoc
+     */
+    public function withHost(string $host): self
     {
         $host = \strtolower($host);
         if ($host === $this->host) {
@@ -183,7 +216,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function withPort($port)
+    /**
+     * @inheritdoc
+     */
+    public function withPort(?int $port): self
     {
         $port = $port === null ? null : (int) $port;
         if (($port === 80 && $this->scheme === 'http') || ($port === 443 && $this->scheme === 'https')) {
@@ -204,7 +240,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function withPath($path)
+    /**
+     * @inheritdoc
+     */
+    public function withPath(string $path): self
     {
         $path = $this->encode($path, \PHP_URL_PATH);
         if ($path === $this->path) {
@@ -217,7 +256,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function withQuery($query)
+    /**
+     * @inheritdoc
+     */
+    public function withQuery(string $query): self
     {
         $query = $this->encode($query, \PHP_URL_QUERY);
         if ($query === $this->query) {
@@ -230,7 +272,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function withFragment($fragment)
+    /**
+     * @inheritdoc
+     */
+    public function withFragment(string $fragment): self
     {
         $fragment = $this->encode($fragment, \PHP_URL_FRAGMENT);
         if ($fragment === $this->fragment) {
@@ -243,7 +288,10 @@ final class Uri implements UriInterface
         return $new;
     }
 
-    public function __toString()
+    /**
+     * @inheritdoc
+     */
+    public function __toString(): string
     {
         $uri = '';
         if ($this->scheme !== '') {

@@ -71,7 +71,10 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
         $this->uri = $uri;
     }
 
-    public function getRequestTarget()
+    /**
+     * @inheritdoc
+     */
+    public function getRequestTarget(): string
     {
         if ($this->requestTarget !== null) {
             return $this->requestTarget;
@@ -88,7 +91,10 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
         return $target;
     }
 
-    public function withRequestTarget($requestTarget)
+    /**
+     * @inheritdoc
+     */
+    public function withRequestTarget(string $requestTarget): RequestInterface
     {
         if ((string) $requestTarget === $this->requestTarget) {
             return $this;
@@ -100,12 +106,18 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
         return $request;
     }
 
-    public function getMethod()
+    /**
+     * @inheritdoc
+     */
+    public function getMethod(): string
     {
         return $this->method;
     }
 
-    public function withMethod($method)
+    /**
+     * @inheritdoc
+     */
+    public function withMethod(string $method): RequestInterface
     {
         if ((string) $method === $this->method) {
             return $this;
@@ -117,12 +129,18 @@ abstract class AbstractRequest extends AbstractMessage implements RequestInterfa
         return $request;
     }
 
-    public function getUri()
+    /**
+     * @inheritdoc
+     */
+    public function getUri(): UriInterface
     {
         return $this->uri;
     }
 
-    public function withUri(UriInterface $uri, $preserveHost = false)
+    /**
+     * @inheritdoc
+     */
+    public function withUri(UriInterface $uri, bool $preserveHost = false): RequestInterface
     {
         if ($uri === $this->uri) {
             return $this;

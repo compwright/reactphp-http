@@ -23,7 +23,10 @@ class BufferedBody implements StreamInterface
         $this->buffer = $buffer;
     }
 
-    public function __toString()
+    /**
+     * @inheritdoc
+     */
+    public function __toString(): string
     {
         if ($this->closed) {
             return '';
@@ -34,13 +37,19 @@ class BufferedBody implements StreamInterface
         return $this->getContents();
     }
 
-    public function close()
+    /**
+     * @inheritdoc
+     */
+    public function close(): void
     {
         $this->buffer = '';
         $this->position = 0;
         $this->closed = true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function detach()
     {
         $this->close();
@@ -48,12 +57,18 @@ class BufferedBody implements StreamInterface
         return null;
     }
 
-    public function getSize()
+    /**
+     * @inheritdoc
+     */
+    public function getSize(): ?int
     {
         return $this->closed ? null : \strlen($this->buffer);
     }
 
-    public function tell()
+    /**
+     * @inheritdoc
+     */
+    public function tell(): int
     {
         if ($this->closed) {
             throw new \RuntimeException('Unable to tell position of closed stream');
@@ -62,17 +77,26 @@ class BufferedBody implements StreamInterface
         return $this->position;
     }
 
-    public function eof()
+    /**
+     * @inheritdoc
+     */
+    public function eof(): bool
     {
         return $this->position >= \strlen($this->buffer);
     }
 
-    public function isSeekable()
+    /**
+     * @inheritdoc
+     */
+    public function isSeekable(): bool
     {
         return !$this->closed;
     }
 
-    public function seek($offset, $whence = \SEEK_SET)
+    /**
+     * @inheritdoc
+     */
+    public function seek($offset, $whence = \SEEK_SET): void
     {
         if ($this->closed) {
             throw new \RuntimeException('Unable to seek on closed stream');
@@ -96,17 +120,26 @@ class BufferedBody implements StreamInterface
         }
     }
 
-    public function rewind()
+    /**
+     * @inheritdoc
+     */
+    public function rewind(): void
     {
         $this->seek(0);
     }
 
-    public function isWritable()
+    /**
+     * @inheritdoc
+     */
+    public function isWritable(): bool
     {
         return !$this->closed;
     }
 
-    public function write($string)
+    /**
+     * @inheritdoc
+     */
+    public function write(string $string): int
     {
         if ($this->closed) {
             throw new \RuntimeException('Unable to write to closed stream');
@@ -127,12 +160,18 @@ class BufferedBody implements StreamInterface
         return $len;
     }
 
-    public function isReadable()
+    /**
+     * @inheritdoc
+     */
+    public function isReadable(): bool
     {
         return !$this->closed;
     }
 
-    public function read($length)
+    /**
+     * @inheritdoc
+     */
+    public function read(int $length): string
     {
         if ($this->closed) {
             throw new \RuntimeException('Unable to read from closed stream');
@@ -156,7 +195,10 @@ class BufferedBody implements StreamInterface
         return \substr($this->buffer, $pos, $length);
     }
 
-    public function getContents()
+    /**
+     * @inheritdoc
+     */
+    public function getContents(): string
     {
         if ($this->closed) {
             throw new \RuntimeException('Unable to read from closed stream');
@@ -172,7 +214,10 @@ class BufferedBody implements StreamInterface
         return \substr($this->buffer, $pos);
     }
 
-    public function getMetadata($key = null)
+    /**
+     * @inheritdoc
+     */
+    public function getMetadata($key = null): ?array
     {
         return $key === null ? array() : null;
     }

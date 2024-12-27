@@ -87,65 +87,98 @@ final class ServerRequest extends AbstractRequest implements ServerRequestInterf
         }
     }
 
-    public function getServerParams()
+    /**
+     * @inheritdoc
+     */
+    public function getServerParams(): array
     {
         return $this->serverParams;
     }
 
-    public function getCookieParams()
+    /**
+     * @inheritdoc
+     */
+    public function getCookieParams(): array
     {
         return $this->cookies;
     }
 
-    public function withCookieParams(array $cookies)
+    /**
+     * @inheritdoc
+     */
+    public function withCookieParams(array $cookies): self
     {
         $new = clone $this;
         $new->cookies = $cookies;
         return $new;
     }
 
-    public function getQueryParams()
+    /**
+     * @inheritdoc
+     */
+    public function getQueryParams(): array
     {
         return $this->queryParams;
     }
 
-    public function withQueryParams(array $query)
+    /**
+     * @inheritdoc
+     */
+    public function withQueryParams(array $query): self
     {
         $new = clone $this;
         $new->queryParams = $query;
         return $new;
     }
 
-    public function getUploadedFiles()
+    /**
+     * @inheritdoc
+     */
+    public function getUploadedFiles(): array
     {
         return $this->fileParams;
     }
 
-    public function withUploadedFiles(array $uploadedFiles)
+    /**
+     * @inheritdoc
+     */
+    public function withUploadedFiles(array $uploadedFiles): self
     {
         $new = clone $this;
         $new->fileParams = $uploadedFiles;
         return $new;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getParsedBody()
     {
         return $this->parsedBody;
     }
 
-    public function withParsedBody($data)
+    /**
+     * @inheritdoc
+     */
+    public function withParsedBody($data): self
     {
         $new = clone $this;
         $new->parsedBody = $data;
         return $new;
     }
 
-    public function getAttributes()
+    /**
+     * @inheritdoc
+     */
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
 
-    public function getAttribute($name, $default = null)
+    /**
+     * @inheritdoc
+     */
+    public function getAttribute(string $name, $default = null)
     {
         if (!\array_key_exists($name, $this->attributes)) {
             return $default;
@@ -153,14 +186,20 @@ final class ServerRequest extends AbstractRequest implements ServerRequestInterf
         return $this->attributes[$name];
     }
 
-    public function withAttribute($name, $value)
+    /**
+     * @inheritdoc
+     */
+    public function withAttribute(string $name, $value): self
     {
         $new = clone $this;
         $new->attributes[$name] = $value;
         return $new;
     }
 
-    public function withoutAttribute($name)
+    /**
+     * @inheritdoc
+     */
+    public function withoutAttribute(string $name): self
     {
         $new = clone $this;
         unset($new->attributes[$name]);

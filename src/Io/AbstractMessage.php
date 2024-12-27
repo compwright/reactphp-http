@@ -65,12 +65,18 @@ abstract class AbstractMessage implements MessageInterface
         $this->body = $body;
     }
 
-    public function getProtocolVersion()
+    /**
+     * @inheritdoc
+     */
+    public function getProtocolVersion(): string
     {
         return $this->protocolVersion;
     }
 
-    public function withProtocolVersion($version)
+    /**
+     * @inheritdoc
+     */
+    public function withProtocolVersion(string $version): MessageInterface
     {
         if ((string) $version === $this->protocolVersion) {
             return $this;
@@ -82,28 +88,43 @@ abstract class AbstractMessage implements MessageInterface
         return $message;
     }
 
-    public function getHeaders()
+    /**
+     * @inheritdoc
+     */
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
-    public function hasHeader($name)
+    /**
+     * @inheritdoc
+     */
+    public function hasHeader(string $name): bool
     {
         return isset($this->headerNamesLowerCase[\strtolower($name)]);
     }
 
-    public function getHeader($name)
+    /**
+     * @inheritdoc
+     */
+    public function getHeader(string $name): array
     {
         $lower = \strtolower($name);
         return isset($this->headerNamesLowerCase[$lower]) ? $this->headers[$this->headerNamesLowerCase[$lower]] : array();
     }
 
-    public function getHeaderLine($name)
+    /**
+     * @inheritdoc
+     */
+    public function getHeaderLine(string $name): string
     {
         return \implode(', ', $this->getHeader($name));
     }
 
-    public function withHeader($name, $value)
+    /**
+     * @inheritdoc
+     */
+    public function withHeader(string $name, $value): MessageInterface
     {
         if ($value === array()) {
             return $this->withoutHeader($name);
@@ -131,7 +152,10 @@ abstract class AbstractMessage implements MessageInterface
         return $message;
     }
 
-    public function withAddedHeader($name, $value)
+    /**
+     * @inheritdoc
+     */
+    public function withAddedHeader(string $name, $value): MessageInterface
     {
         if ($value === array()) {
             return $this;
@@ -140,7 +164,10 @@ abstract class AbstractMessage implements MessageInterface
         return $this->withHeader($name, \array_merge($this->getHeader($name), \is_array($value) ? $value : array($value)));
     }
 
-    public function withoutHeader($name)
+    /**
+     * @inheritdoc
+     */
+    public function withoutHeader(string $name): MessageInterface
     {
         $lower = \strtolower($name);
         if (!isset($this->headerNamesLowerCase[$lower])) {
@@ -153,12 +180,18 @@ abstract class AbstractMessage implements MessageInterface
         return $message;
     }
 
-    public function getBody()
+    /**
+     * @inheritdoc
+     */
+    public function getBody(): StreamInterface
     {
         return $this->body;
     }
 
-    public function withBody(StreamInterface $body)
+    /**
+     * @inheritdoc
+     */
+    public function withBody(StreamInterface $body): MessageInterface
     {
         if ($body === $this->body) {
             return $this;

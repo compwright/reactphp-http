@@ -29,21 +29,33 @@ class EmptyBodyStream extends EventEmitter implements StreamInterface, ReadableS
 {
     private $closed = false;
 
-    public function isReadable()
+    /**
+     * @inheritdoc
+     */
+    public function isReadable(): bool
     {
         return !$this->closed;
     }
 
-    public function pause()
+    /**
+     * @inheritdoc
+     */
+    public function pause(): void
     {
         // NOOP
     }
 
-    public function resume()
+    /**
+     * @inheritdoc
+     */
+    public function resume(): void
     {
         // NOOP
     }
 
+    /**
+     * @inheritdoc
+     */
     public function pipe(WritableStreamInterface $dest, array $options = array())
     {
         Util::pipe($this, $dest, $options);
@@ -51,7 +63,10 @@ class EmptyBodyStream extends EventEmitter implements StreamInterface, ReadableS
         return $dest;
     }
 
-    public function close()
+    /**
+     * @inheritdoc
+     */
+    public function close(): void
     {
         if ($this->closed) {
             return;
@@ -63,7 +78,10 @@ class EmptyBodyStream extends EventEmitter implements StreamInterface, ReadableS
         $this->removeAllListeners();
     }
 
-    public function getSize()
+    /**
+     * @inheritdoc
+     */
+    public function getSize(): ?int
     {
         return 0;
     }
@@ -81,55 +99,55 @@ class EmptyBodyStream extends EventEmitter implements StreamInterface, ReadableS
     }
 
     /** @ignore */
-    public function tell()
+    public function tell(): int
     {
         throw new \BadMethodCallException();
     }
 
     /** @ignore */
-    public function eof()
+    public function eof(): bool
     {
         throw new \BadMethodCallException();
     }
 
     /** @ignore */
-    public function isSeekable()
+    public function isSeekable(): bool
     {
         return false;
     }
 
     /** @ignore */
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek($offset, $whence = SEEK_SET): void
     {
         throw new \BadMethodCallException();
     }
 
     /** @ignore */
-    public function rewind()
+    public function rewind(): void
     {
         throw new \BadMethodCallException();
     }
 
     /** @ignore */
-    public function isWritable()
+    public function isWritable(): bool
     {
         return false;
     }
 
     /** @ignore */
-    public function write($string)
+    public function write($string): int
     {
         throw new \BadMethodCallException();
     }
 
     /** @ignore */
-    public function read($length)
+    public function read(int $length): string
     {
         throw new \BadMethodCallException();
     }
 
     /** @ignore */
-    public function getContents()
+    public function getContents(): string
     {
         return '';
     }
