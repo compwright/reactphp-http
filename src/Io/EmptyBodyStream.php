@@ -87,7 +87,7 @@ class EmptyBodyStream extends EventEmitter implements StreamInterface, ReadableS
     }
 
     /** @ignore */
-    public function __toString()
+    public function __toString(): string
     {
         return '';
     }
