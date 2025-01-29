@@ -75,9 +75,8 @@ abstract class AbstractMessage implements MessageInterface
 
     /**
      * @inheritdoc
-     * @return MessageInterface
      */
-    public function withProtocolVersion(string $version)
+    public function withProtocolVersion(string $version): self
     {
         if ((string) $version === $this->protocolVersion) {
             return $this;
@@ -125,7 +124,7 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @inheritdoc
      */
-    public function withHeader(string $name, $value): MessageInterface
+    public function withHeader(string $name, $value): self
     {
         if ($value === array()) {
             return $this->withoutHeader($name);
@@ -156,7 +155,7 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @inheritdoc
      */
-    public function withAddedHeader(string $name, $value): MessageInterface
+    public function withAddedHeader(string $name, $value): self
     {
         if ($value === array()) {
             return $this;
@@ -168,7 +167,7 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @inheritdoc
      */
-    public function withoutHeader(string $name): MessageInterface
+    public function withoutHeader(string $name): self
     {
         $lower = \strtolower($name);
         if (!isset($this->headerNamesLowerCase[$lower])) {
@@ -192,7 +191,7 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @inheritdoc
      */
-    public function withBody(StreamInterface $body): MessageInterface
+    public function withBody(StreamInterface $body): self
     {
         if ($body === $this->body) {
             return $this;
