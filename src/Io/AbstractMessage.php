@@ -75,8 +75,9 @@ abstract class AbstractMessage implements MessageInterface
 
     /**
      * @inheritdoc
+     * @return MessageInterface
      */
-    public function withProtocolVersion(string $version): MessageInterface
+    public function withProtocolVersion(string $version)
     {
         if ((string) $version === $this->protocolVersion) {
             return $this;
